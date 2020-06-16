@@ -19,6 +19,9 @@ spring:
 
 
 mybatis-plus:
+  global-config:
+    # 去掉mybatis-plus logo输出
+    banner: false
   type-aliases-package: com.hysz.sop.entity
   mapper-locations: classpath:mappers/*Mapper.xml
   configuration:
