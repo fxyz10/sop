@@ -18,7 +18,7 @@ spring:
     database: 9
 
 
-mybatis:
+mybatis-plus:
   type-aliases-package: com.hysz.sop.entity
   mapper-locations: classpath:mappers/*Mapper.xml
   configuration:
