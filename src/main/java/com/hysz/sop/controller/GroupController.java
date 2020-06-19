@@ -3,6 +3,7 @@ package com.hysz.sop.controller;
 import com.hysz.sop.entity.Group;
 import com.hysz.sop.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,9 @@ public class GroupController {
 
     @PostMapping(value = "/get/{id}")
     public Group getUserById(@PathVariable Integer id) {
-        return service.getGroupById(id);
+        Group group = service.getGroupById(id);
+        Assert.notNull(group, "组不存在");
+        return group;
     }
 
     @PostMapping(value = "/count")
