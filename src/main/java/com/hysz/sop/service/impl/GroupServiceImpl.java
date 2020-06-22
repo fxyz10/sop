@@ -7,16 +7,18 @@ import com.hysz.sop.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 
 @Service
 public class GroupServiceImpl implements GroupService {
 
-    @Autowired
     private GroupDao dao;
+
+    @Autowired
+    public void setDao(GroupDao dao) {
+        this.dao = dao;
+    }
 
     @Override
     public Group getGroupById(Integer id) {
