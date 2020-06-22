@@ -4,21 +4,23 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.hysz.sop.entity.Group;
 import com.hysz.sop.mapper.GroupDao;
 import com.hysz.sop.service.GroupService;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
 @Service
 public class GroupServiceImpl implements GroupService {
 
+    @Resource
     private GroupDao dao;
 
-    @Autowired
-    public void setDao(GroupDao dao) {
-        this.dao = dao;
-    }
+//    @Autowired
+//    public void setDao(GroupDao dao) {
+//        this.dao = dao;
+//    }
 
     @Override
     public Group getGroupById(Integer id) {
