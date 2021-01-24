@@ -28,8 +28,21 @@ public class UploadController {
         String fileName = multipartFile.getOriginalFilename();
         // size单位byte，转KB除1024。
         int size = (int) multipartFile.getSize();
+        String content = new String(multipartFile.getBytes(), StandardCharsets.UTF_8);
         System.out.println("up_file_name: " + fileName);
         System.out.println("up_file_size: " + size);
+        System.out.println("up_file_content: " + content);
+        System.out.println("read start");
+        // 上传文件转为inputStream后，可以直接用Workbook接收。
+        BufferedInputStream bis = new BufferedInputStream(multipartFile.getInputStream());
+        InputStreamReader isr = new InputStreamReader(bis);
+        int ch;
+        while ((ch = isr.read()) != -1) {
+            System.out.print((char) ch);
+        }
+        isr.close();
+        bis.close();
+        System.out.println("read end");
         Assert.notNull(fileName, "文件名不能为空");
         File file = new File(upDir, fileName);
         multipartFile.transferTo(file);
