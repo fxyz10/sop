@@ -18,11 +18,22 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping(value = "/file")
 public class UploadController {
 
-    private final String upDir = "D:\\workspace\\filesDir\\up";
-    private final String downDir = "D:\\workspace\\filesDir\\down";
+    private final String upDir = "D:\\conf\\up";
+    private final String downDir = "D:\\conf\\down";
 
     @GetMapping(value = "upFile")
     public String upFile(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+        // 按行读MultipartFile start
+        InputStreamReader isrNew = new InputStreamReader(multipartFile.getInputStream());
+        BufferedReader bf = new BufferedReader(isrNew);
+        String str;
+        // 按行请求接口
+        while((str = bf.readLine()) != null) {
+            System.out.println(str);
+        }
+        bf.close();
+        isrNew.close();
+        // 按行读MultipartFile end
         System.out.println("up file start");
         System.out.println("server up path: " + upDir);
         String fileName = multipartFile.getOriginalFilename();
