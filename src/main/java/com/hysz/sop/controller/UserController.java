@@ -1,8 +1,12 @@
 package com.hysz.sop.controller;
 
+import com.hysz.sop.common.CheckInterface;
 import com.hysz.sop.entity.User;
 import com.hysz.sop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +16,12 @@ import java.util.List;
 @RequestMapping(value = "/user")
 public class UserController {
 
+    private final UserService service;
+
     @Autowired
-    private UserService service;
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @PostMapping(value = "/get/{id}")
     public User getUserById(@PathVariable Integer id) {
@@ -31,8 +39,13 @@ public class UserController {
     }
 
     @PostMapping(value = "/add")
-    public String addUser(@RequestBody User user) {
-
+    public String addUser(@RequestBody @Validated(CheckInterface.Add.class) User user, BindingResult result) {
+        if (result.hasErrors()) {
+            for (ObjectError oe : result.getAllErrors()) {
+                System.out.println(oe.getDefaultMessage());
+            }
+            System.out.println("===");
+        }
         int res = service.addUser(user);
         System.out.println(res);
         return "insert user";
@@ -46,7 +59,12 @@ public class UserController {
     }
 
     @PostMapping(value = "/update")
-    public String updateUser(@RequestBody User user) {
+    public String updateUser(@RequestBody @Validated(CheckInterface.Update.class) User user, BindingResult result) {
+        if (result.hasErrors()) {
+            for (ObjectError oe : result.getAllErrors()) {
+                System.out.println(oe.getDefaultMessage());
+            }
+        }
         int res = service.updateUser(user);
         System.out.println(res);
         return "update user";
